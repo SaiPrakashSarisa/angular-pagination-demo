@@ -1,3 +1,30 @@
+.outer-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    table{
+        border : 1px solid black;
+        border-collapse: collapse;
+        color: white;
+        th{
+            border: 1px solid black;
+            width : 15rem;
+            height : 2rem;
+            padding : 1rem 1rem;
+            background-color: #007bff;
+        }
+        td{
+            border: 1px solid black;
+            width: 15rem;
+            height: 2rem;
+            padding: 1rem 1rem;
+            background-color: #6c757d;
+        }
+    }
+}
+
 .pagination{
     margin : 0px;
     display: flex;

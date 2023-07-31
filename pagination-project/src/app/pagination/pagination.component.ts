@@ -11,7 +11,7 @@ export class PaginationComponent {
   users : any = {};
   totalItems : number = 0;
   currentPage : number = 1;
-  itemsPerPage : number = 3;
+  itemsPerPage : number = 7;
   totalPages  : number = 0;
 
   constructor(private http : HttpClient) {}
@@ -32,9 +32,9 @@ export class PaginationComponent {
       this.totalItems = response.count;
 
       if(this.totalItems % this.itemsPerPage == 0){
-        this.totalPages = this.totalItems / this.itemsPerPage;
+        this.totalPages = Math.trunc(this.totalItems / this.itemsPerPage);
       }else{
-        this.totalPages = (this.totalItems / this.itemsPerPage) + 1;
+        this.totalPages = Math.trunc((this.totalItems / this.itemsPerPage) + 1);
       }
 
     console.log(`Total Pages ${this.totalPages}`);
@@ -67,4 +67,9 @@ export class PaginationComponent {
     this.currentPage = pageNumber;
     this.getUsers();
   }
+
+  onItemsPerPageChange(): void {
+  this.currentPage = 1; // Reset the current page to 1 when the items per page changes
+  this.getUsers();
+}
 }

@@ -1,6 +1,8 @@
 <h1>Pagination </h1>
 
-<div>
+<p>Records Per page <input type="number" [(ngModel)] = "itemsPerPage" (change)="onItemsPerPageChange()"></p>
+
+<div class="outer-div">
     <div>
         <table>
             <thead>
