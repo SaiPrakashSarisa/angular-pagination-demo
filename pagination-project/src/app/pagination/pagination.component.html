@@ -1,0 +1,42 @@
+<h1>Pagination </h1>
+
+<div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>phone</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone}}</td>
+                    <td><span>EDIT</span>
+                        <span>DELETE</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<nav>
+    <ul class="pagination">
+        <li [ngClass]="currentPage == 1 ? 'page-item page-link disabled' : 'page-item page-link'" (click)="previous()">Previous</li>
+        <li class="page-item page-link" *ngIf="currentPage == totalPages" (click)="onPageClick(currentPage - 2)">{{currentPage - 2}}</li>
+        <li class="page-item page-link" *ngIf="currentPage > 1" (click)="onPageClick(currentPage - 1)">{{currentPage - 1}}</li>
+        <li class="page-item page-link active" (click)="onPageClick(currentPage)">{{currentPage}}</li>
+        <li class="page-item page-link" *ngIf="currentPage != totalPages" (click)="onPageClick(currentPage + 1)">{{currentPage + 1}}</li>
+        <li class="page-item page-link" *ngIf="currentPage == 1" (click)="onPageClick(currentPage + 2)">{{currentPage + 2}}</li>
+        <li [ngClass]="currentPage == totalPages ? 'page-item page-link disabled' : 'page-item page-link'" (click)="nextpage()">Next</li>
+    </ul>
+</nav>
