@@ -1,0 +1,88 @@
+<div>
+    <div class="flex bg-primary justify-content-center align-items-center p-4">
+        <h1>Expences Management</h1>
+    </div>
+    <div class="flex flex-wrap">
+        <!-- sucess message  -->
+        <!-- <p-message severity="error" text="Added to data"></p-message> -->
+        <!-- failed Message  -->
+        <!-- <p-message severity="error" text="Failed to add"></p-message> -->
+        <!-- add expense button  -->
+        <div class ="flex justify-content-center align-items-center m-4 h-8rem w-15rem cursor-pointer text-white">
+            <p-button  (click)="showDialog('expences')" icon='pi pi-plus' class="items" styleClass="p-button-danger" label="Add New Expences"></p-button>
+        </div>
+        <!-- add income button  -->
+        <div
+            class="flex justify-content-center align-items-center m-4 h-8rem w-15rem cursor-pointer text-white">
+            <p-button  (click)="showDialog('income')" icon="pi pi-plus" class="items" label="Add New Income"></p-button>
+        </div>
+        <!-- show expenses button  -->
+        <div class ="flex justify-content-center align-items-center m-4 h-8rem w-15rem cursor-pointer text-white" routerLink="/dashboard">
+            <p-button icon="pi pi-bars" class="items" styleClass="p-button-success" label="Show Expences" routerLink="/dashboard"></p-button>
+        </div>
+        <!-- add expences details  -->
+        <p-dialog header="Add New Expence" [(visible)]="expenceVisible" [modal]="true" [style]="{ width : '40vw',height : '500px' }" [draggable]="true"
+            [resizable]="false">
+            <form [formGroup]="expencesForm" (ngSubmit)="expenseSubmit()">
+            <div>
+                <span class="p-float-label my-5">
+                    <input pInputText id="amount" formControlName="amount" class="input"/>
+                    <label htmlFor="amount" class="text-lg">Expence Amount</label>
+                </span>
+               
+                <span class="p-float-label my-5">
+                    <p-dropdown [options]="categories" id="category"placeholder="Select a Category" [editable]="true"
+                        optionLabel="name" formControlName="category"></p-dropdown>
+                        <label htmlFor ="category"  class="text-lg">Category</label>
+                </span>
+
+                <span class="p-float-label my-5">
+                    <input pInputText id="desc" formControlName="description" class="input"/>
+                    <label htmlFor="desc"  class="text-lg">Description</label>
+                </span>
+
+                <div class="flex justify-content-between">
+                    <p-button type="reset" icon="pi pi-times" label="Clear" styleClass="p-button-outlined p-button-danger"></p-button>
+                    
+                    <button type="submit" pButton pRipple icon="pi pi-check" label="Submit"></button>
+                </div>
+                
+            </div>
+            </form>
+        </p-dialog>
+
+        <!-- add income details  -->
+        <p-dialog header="Add New Income" [(visible)]="incomeVisible" [modal]="true" [style]="{ width : '40vw',height : '500px' }" [draggable]="true"
+            [resizable]="false">
+            <form [formGroup]="incomeForm" (ngSubmit)="incomeSubmit()">
+                <div>
+                    <span class="p-float-label my-5">
+                        <input pInputText id="amount"  formControlName="amount" class="input"/>
+                        <label htmlFor="amount"  class="text-lg">Expence Amount</label>
+                    </span>
+            
+            
+                    <span class="p-float-label my-5">
+                        <p-dropdown [options]="incomeCategory" id="category" placeholder="Select a Category" [editable]="true" optionLabel="name"
+                            formControlName="category"></p-dropdown>
+                            <label htmlFor="category"  class="text-lg">Category</label>
+                    </span>
+            
+                    <span class="p-float-label my-5">
+                        <input pInputText id="desc"  formControlName="description" class="input"/>
+                        <label htmlFor="desc"  class="text-lg">Description</label>
+                    </span>
+            
+                    <div class="flex justify-content-between">
+                        
+                        <p-button type="reset" icon="pi pi-times" label="Clear" styleClass="p-button-outlined p-button-danger"></p-button>
+                       
+                        <button type="submit" pButton pRipple icon="pi pi-check" label="Submit"></button>
+                    </div>
+            
+                </div>
+            </form>
+        </p-dialog>
+        
+    </div>
+</div>
