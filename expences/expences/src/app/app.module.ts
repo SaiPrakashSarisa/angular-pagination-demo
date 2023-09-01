@@ -9,15 +9,17 @@ import { IndexpageComponent } from './components/indexpage/indexpage.component';
 import { HomeComponent } from './components/home/home.component';
 import { ExpencesDashboardComponent } from './components/expences-dashboard/expences-dashboard.component';
 
+
 // primeNg componets imports
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
 import { HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { MessagesModule } from 'primeng/messages';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 
 @NgModule({
@@ -36,9 +38,11 @@ import { MessagesModule } from 'primeng/messages';
     DropdownModule,
     CardModule,
     MessagesModule, 
+    InputSwitchModule,
     TableModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

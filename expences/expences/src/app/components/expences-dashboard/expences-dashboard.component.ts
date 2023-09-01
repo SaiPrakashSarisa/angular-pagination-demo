@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { HttpResponse } from '@angular/common/http';
-import { saveAs } from 'file-saver';
-import * as reader from 'xlsx'
+import { ExcelService } from 'src/app/services/excel.service';
+import { Table } from 'primeng/table';
 
 interface Expenses  {
   amount : Number,
@@ -29,18 +29,26 @@ export class ExpencesDashboardComponent {
   expenses : Expenses[] = [] ;
   selectedExpenses : Expenses[] = [];
 
+  // switch tables
+  showFilters : boolean = true;
+  // primeNg table with filter data
+  loading : boolean = true;
+  activityValues: number[] = [0, 100];
+  //ends
+
   // for primengTable
   cols : Column[] = [];
 
   exportColumns : any[] =[];
 
-  constructor(private eService : ExpensesService) {}
+  constructor(private eService : ExpensesService, private excelService : ExcelService) {}
 
   ngOnInit () {
      this.eService.getExpenses().subscribe(async (res : HttpResponse<any>) => {
       let data = await JSON.parse(res.body.body);
       console.log(data.data);
       this.expenses = data.data;
+      this.loading = false;
     });
 
     console.log(this.expenses)
@@ -56,32 +64,30 @@ export class ExpencesDashboardComponent {
     this.exportColumns = this.cols.map(col => ({title : col.header, dataKey : col.field}));
   }
 
-  writeData(){
-    const file = reader.readFile('C:/Users/C45688/Downloads/expenses_exports.xlsx');
-   
-    const writer = reader.utils.json_to_sheet(this.expenses);
-    console.log(writer);
-    reader.utils.book_append_sheet(file, writer, 'sheet 1');
-    reader.writeFile(file,'C:/Users/C45688/Downloads/expenses_exports.xlsx' );
+  downloadExcel(){
+    this.excelService.generateExcel(this.expenses, 'MyExpenses');
   }
 
-  // // export as Excel
-  // exportExcel(){
-  //   import('xlsx').then(xlsx => {
-  //     const worksheet = xlsx.utils.json_to_sheet(this.expenses);
-  //     const workbook = {Sheets : {'data' : worksheet }, SheetNames : ['Expenses'] };
-  //     const excelBuffer : any = xlsx.write(workbook, {bookType : 'xlsx', type : 'array' });
-  //     this.saveAsExcelFile(excelBuffer, "expenses");
-  //   })
-  // }
+  clear(table: Table) {
+        table.clear();
+  }
 
-  // saveAsExcelFile(buffer : any , fileName : string) : void {
-  //   let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  //   let EXCEL_EXTENSION = '.xlsx';
-  //   const data : Blob = new Blob([buffer], {
-  //     type : EXCEL_TYPE
-  //   });
-  //   saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
-  // }
+  getSeverity(status: string) :any{
+        switch (status) {
+            case 'unqualified':
+                return 'danger';
 
+            case 'qualified':
+                return 'success';
+
+            case 'new':
+                return 'info';
+
+            case 'negotiation':
+                return 'warning';
+
+            case 'renewal':
+                return null;
+        }
+    }
 }
